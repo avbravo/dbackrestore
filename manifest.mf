@@ -2,5 +2,5 @@ Manifest-Version: 1.0
 OpenIDE-Module: org.avbravo.dbackrestore
 OpenIDE-Module-Localizing-Bundle: org/avbravo/dbackrestore/Bundle.properties
 OpenIDE-Module-Requires: org.openide.windows.WindowManager
-OpenIDE-Module-Specification-Version: 0.5.35
+OpenIDE-Module-Specification-Version: 0.5.36
 
