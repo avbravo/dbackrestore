@@ -95,6 +95,7 @@ public final class DBackRestoreTopComponent extends TopComponent {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -121,6 +122,26 @@ public final class DBackRestoreTopComponent extends TopComponent {
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabelMySQLPath = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jTextFieldPathMongodb = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jButtonSelectDirectory1 = new javax.swing.JButton();
+        jButtonBackup1 = new javax.swing.JButton();
+        jButtonRestore1 = new javax.swing.JButton();
+        jButtonSelectDirectory2 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         jTextFieldRuta.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
         jTextFieldRuta.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextFieldRuta.text")); // NOI18N
@@ -357,7 +378,7 @@ public final class DBackRestoreTopComponent extends TopComponent {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelMySQLPath, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,20 +401,200 @@ public final class DBackRestoreTopComponent extends TopComponent {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jTextFieldComando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jTabbedPane2.addTab(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel8, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel8.text")); // NOI18N
+
+        jTextFieldPathMongodb.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextFieldPathMongodb.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel9, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel9.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel10, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel10.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel11, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel11.text")); // NOI18N
+
+        jTextField1.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextField1.text")); // NOI18N
+
+        jTextField2.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextField2.text")); // NOI18N
+
+        jTextField3.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextField3.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel12, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel12.text")); // NOI18N
+
+        jTextField4.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextField4.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel13, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel13.text")); // NOI18N
+
+        jTextField5.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextField5.text")); // NOI18N
+
+        jButtonSelectDirectory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/open-icon.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory1, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonSelectDirectory1.text")); // NOI18N
+        jButtonSelectDirectory1.setToolTipText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonSelectDirectory1.toolTipText")); // NOI18N
+        jButtonSelectDirectory1.setEnabled(false);
+        jButtonSelectDirectory1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelectDirectory1ActionPerformed(evt);
+            }
+        });
+
+        jButtonBackup1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/backupgreen.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonBackup1, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonBackup1.text")); // NOI18N
+        jButtonBackup1.setEnabled(false);
+        jButtonBackup1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackup1ActionPerformed(evt);
+            }
+        });
+
+        jButtonRestore1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/restore.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonRestore1, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonRestore1.text")); // NOI18N
+        jButtonRestore1.setEnabled(false);
+        jButtonRestore1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRestore1ActionPerformed(evt);
+            }
+        });
+
+        jButtonSelectDirectory2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/open-icon.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory2, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonSelectDirectory2.text")); // NOI18N
+        jButtonSelectDirectory2.setToolTipText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonSelectDirectory2.toolTipText")); // NOI18N
+        jButtonSelectDirectory2.setEnabled(false);
+        jButtonSelectDirectory2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelectDirectory2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldPathMongodb))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonSelectDirectory1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel13)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonSelectDirectory2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel11)
+                                        .addGap(36, 36, 36)
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButtonBackup1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jTextField3)
+                                .addGap(37, 37, 37))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonRestore1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(126, Short.MAX_VALUE))))))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jTextFieldPathMongodb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel10)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonSelectDirectory1)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonBackup1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonRestore1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jButtonSelectDirectory2))
+                        .addGap(21, 21, 21))))
+        );
+
+        jTabbedPane3.addTab(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jPanel6.TabConstraints.tabTitle"), jPanel6); // NOI18N
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 61, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jPanel5.TabConstraints.tabTitle"), jPanel5); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 136, Short.MAX_VALUE))
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 699, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 8, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -661,22 +862,49 @@ public final class DBackRestoreTopComponent extends TopComponent {
         }
 
     }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jButtonSelectDirectory1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectDirectory1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSelectDirectory1ActionPerformed
+
+    private void jButtonBackup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackup1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonBackup1ActionPerformed
+
+    private void jButtonRestore1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRestore1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonRestore1ActionPerformed
+
+    private void jButtonSelectDirectory2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectDirectory2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSelectDirectory2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonBackup;
+    private javax.swing.JButton jButtonBackup1;
     private javax.swing.JButton jButtonCargar;
     private javax.swing.JButton jButtonRestore;
+    private javax.swing.JButton jButtonRestore1;
     private javax.swing.JButton jButtonSelectDirectory;
+    private javax.swing.JButton jButtonSelectDirectory1;
+    private javax.swing.JButton jButtonSelectDirectory2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JComboBox jComboBoxDataBases;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelArchivoBackup;
     private javax.swing.JLabel jLabelDataBases;
     private javax.swing.JLabel jLabelMySQLPath;
@@ -686,8 +914,19 @@ public final class DBackRestoreTopComponent extends TopComponent {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextFieldComando;
+    private javax.swing.JTextField jTextFieldPathMongodb;
     private javax.swing.JTextField jTextFieldRuta;
     // End of variables declaration//GEN-END:variables
 
