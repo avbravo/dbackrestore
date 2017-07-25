@@ -4,7 +4,6 @@
  */
 package org.avbravo.nbdbdump;
 
-import java.awt.HeadlessException;
 import java.io.IOException;
 import java.util.MissingResourceException;
 import java.util.prefs.PreferenceChangeEvent;
@@ -14,9 +13,6 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.netbeans.api.db.explorer.ConnectionManager;
-import org.netbeans.api.db.explorer.DatabaseConnection;
-import org.netbeans.api.db.explorer.support.DatabaseExplorerUIs;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -62,13 +58,13 @@ public final class NbDbDumpDialog extends JDialog {
 //        setName(Bundle.CTL_nbdbdumpTopComponent());
 //        setToolTipText(Bundle.HINT_nbdbdumpTopComponent());
         try {
-            DatabaseExplorerUIs.connect(dataBasesComboBox, ConnectionManager.getDefault());
+//            DatabaseExplorerUIs.connect(dataBasesComboBox, ConnectionManager.getDefault());
 
             Preferences pref = NbPreferences.forModule(NbDbDumpOptionsPanel.class);
             String name = pref.get("pathmysql", "");
             //String pathBackupFolder = pref.get("pathbackupfolder", "");
             //jTextFieldRuta.setText(pathBackupFolder);
-            jLabelMySQLPath.setText(name);
+//            jLabelMySQLPath.setText(name);
             pref.addPreferenceChangeListener(new PreferenceChangeListener() {
 
 //            public void preferenceChange(PreferenceChangeEvent evt) {
@@ -77,7 +73,7 @@ public final class NbDbDumpDialog extends JDialog {
                 @Override
                 public void preferenceChange(PreferenceChangeEvent evt) {
                     if (evt.getKey().equals("pathmysql")) {
-                        jLabelMySQLPath.setText(evt.getNewValue());
+//                        jLabelMySQLPath.setText(evt.getNewValue());
                     }
                 }
             });
@@ -101,7 +97,6 @@ public final class NbDbDumpDialog extends JDialog {
         jPanel2 = new javax.swing.JPanel();
         jTextFieldRuta = new javax.swing.JTextField();
         jButtonSelectDirectory = new javax.swing.JButton();
-        jButtonBackup = new javax.swing.JButton();
         dataToFilenameCheckbox = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -111,15 +106,16 @@ public final class NbDbDumpDialog extends JDialog {
         jLabelRutaBackup = new javax.swing.JLabel();
         jLabelArchivoBackup = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        dataBasesLabel = new javax.swing.JLabel();
-        dataBasesComboBox = new javax.swing.JComboBox();
-        jLabelDataBases = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jTextFieldComando = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabelMySQLPath = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        mysqldumpPathLabel = new javax.swing.JLabel();
+        mysqldumpPathBtn = new javax.swing.JButton();
+        mysqldumpPathTextField = new javax.swing.JTextField();
+        statementsComboBox = new javax.swing.JComboBox<String>();
+        selectedDatabasesTextField = new javax.swing.JTextField();
+        statementsLabel = new javax.swing.JLabel();
+        selectedDatabasesLabel = new javax.swing.JLabel();
+        okBtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -159,15 +155,6 @@ public final class NbDbDumpDialog extends JDialog {
             }
         });
 
-        jButtonBackup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/nbdbdump/resources/backupgreen.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonBackup, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonBackup.text")); // NOI18N
-        jButtonBackup.setEnabled(false);
-        jButtonBackup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBackupActionPerformed(evt);
-            }
-        });
-
         org.openide.awt.Mnemonics.setLocalizedText(dataToFilenameCheckbox, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.dataToFilenameCheckbox.text")); // NOI18N
         dataToFilenameCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,15 +168,12 @@ public final class NbDbDumpDialog extends JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButtonSelectDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(dataToFilenameCheckbox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(dataToFilenameCheckbox))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -200,10 +184,8 @@ public final class NbDbDumpDialog extends JDialog {
                     .addComponent(jButtonSelectDirectory)
                     .addComponent(jTextFieldRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dataToFilenameCheckbox)
-                    .addComponent(jButtonBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 42, Short.MAX_VALUE))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addComponent(dataToFilenameCheckbox)
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
@@ -288,92 +270,97 @@ public final class NbDbDumpDialog extends JDialog {
 
         jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(dataBasesLabel, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.dataBasesLabel.text")); // NOI18N
-
-        dataBasesComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dataBasesComboBoxActionPerformed(evt);
-            }
-        });
-
-        jLabelDataBases.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jLabelDataBases, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabelDataBases.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel4.text")); // NOI18N
-
         jTextFieldComando.setFont(new java.awt.Font("Ubuntu", 0, 8)); // NOI18N
         jTextFieldComando.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jTextFieldComando.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel6, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel6.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(mysqldumpPathLabel, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.mysqldumpPathLabel.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel2.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(jLabelMySQLPath, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabelMySQLPath.text")); // NOI18N
-
-        jTextField6.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jTextField6.text")); // NOI18N
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        org.openide.awt.Mnemonics.setLocalizedText(mysqldumpPathBtn, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.mysqldumpPathBtn.text")); // NOI18N
+        mysqldumpPathBtn.setToolTipText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.mysqldumpPathBtn.toolTipText")); // NOI18N
+        mysqldumpPathBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                mysqldumpPathBtnActionPerformed(evt);
             }
         });
+
+        mysqldumpPathTextField.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.mysqldumpPathTextField.text")); // NOI18N
+
+        statementsComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Insert", "Insert with data" }));
+
+        selectedDatabasesTextField.setEditable(false);
+        selectedDatabasesTextField.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.selectedDatabasesTextField.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(statementsLabel, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.statementsLabel.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(selectedDatabasesLabel, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.selectedDatabasesLabel.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(okBtn, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.okBtn.text")); // NOI18N
+        okBtn.setEnabled(false);
+        okBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okBtnActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(jButton1, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButton1.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(dataBasesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(dataBasesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 12, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelDataBases, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(mysqldumpPathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(statementsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(selectedDatabasesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldComando, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(selectedDatabasesTextField)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(mysqldumpPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(mysqldumpPathBtn))
+                            .addComponent(statementsComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelMySQLPath, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextFieldComando, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 12, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(okBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mysqldumpPathLabel)
+                    .addComponent(mysqldumpPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mysqldumpPathBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dataBasesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dataBasesLabel))
+                    .addComponent(statementsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statementsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabelDataBases))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabelMySQLPath))
-                .addGap(3, 3, 3)
+                    .addComponent(selectedDatabasesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selectedDatabasesLabel))
+                .addGap(7, 7, 7)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 201, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jTextFieldComando)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextFieldComando, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(okBtn)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -550,7 +537,7 @@ public final class NbDbDumpDialog extends JDialog {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jPanel5.TabConstraints.tabTitle"), jPanel5); // NOI18N
@@ -582,93 +569,6 @@ public final class NbDbDumpDialog extends JDialog {
     private void jButtonSelectDirectory2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectDirectory2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonSelectDirectory2ActionPerformed
-
-    private void dataBasesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataBasesComboBoxActionPerformed
-
-        try {
-            //     String osName = System.getProperty("os.name").toLowerCase();
-            //     advertencia(osName);
-            //     if(osName.toLowerCase().equals("windows")){
-                //
-                //     }
-            //     Preferences pref = NbPreferences.forModule(NbDbDumpOptionsPanel.class);
-            //        String name = pref.get("pathmysql", "");
-            //
-            //        pref.addPreferenceChangeListener(new PreferenceChangeListener() {
-                //
-                ////            public void preferenceChange(PreferenceChangeEvent evt) {
-                    ////
-                    ////            }
-                //
-                //       @Override
-                //            public void preferenceChange(PreferenceChangeEvent evt) {
-                    //  if (evt.getKey().equals("pathmysql")) {
-                        //                    jLabelMySQLPath.setText(evt.getNewValue());
-                        //                }
-                    //            }
-                //        });
-
-        jButtonSelectDirectory.setEnabled(false);
-        jButtonCargar.setEnabled(false);
-        jButtonBackup.setEnabled(false);
-
-        if (dataBasesComboBox.getSelectedItem() == null) {
-            advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Message_SelectConexion"));
-
-            return;
-        }
-        DatabaseConnection dbconn = null;
-        Object selected = dataBasesComboBox.getSelectedItem();
-        if (selected instanceof DatabaseConnection) {
-            dbconn = (DatabaseConnection) selected;
-        } else {
-            advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Message_NoConnected"));
-            return;
-        }
-        int intentos = 0;
-        while (intentos < 2) {
-            ConnectionHelper.setUrlDB(dbconn.getDatabaseURL());
-            ConnectionHelper.setUserDB(dbconn.getUser());
-            ConnectionHelper.setPasswordDB(dbconn.getPassword());
-            ConnectionHelper.setDriverDB(dbconn.getDriverClass());
-            ConnectionHelper.setConn(dbconn.getJDBCConnection(false));
-            String url = dbconn.getDatabaseURL();
-            Integer posicionMySQL = url.indexOf("mysql:");
-            if (posicionMySQL.equals(-1)) {
-                advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Message_NoMySQL"));
-                return;
-            } else {
-
-                Integer inicial = posicionMySQL + 8;
-                Integer ultimo = url.lastIndexOf(":");
-                if (ultimo.equals(-1)) {
-                    advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Message_NoPointURL"));
-                    return;
-                }
-                this.host = url.substring(inicial, ultimo);
-
-            }
-            if (ConnectionHelper.getConn() == null) {
-                ConnectionManager.getDefault().showConnectionDialog(dbconn);
-            } else {
-                break;
-            }
-            intentos++;
-        }
-            if (ConnectionHelper.getConn() == null) {
-            ConnectionManager.getDefault().showConnectionDialog(dbconn);
-            advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Mensaje_NoConectado"));
-            return;
-        }
-            ConnectionHelper.setPrefijo(ConnectionHelper.getConn().getCatalog());
-            jLabelDataBases.setText(ConnectionHelper.getPrefijo());
-            this.dataBase = ConnectionHelper.getPrefijo();
-        jButtonSelectDirectory.setEnabled(true);
-        jButtonCargar.setEnabled(true);
-        } catch (Exception e) {
-            error(e.getLocalizedMessage());
-        }
-    }//GEN-LAST:event_dataBasesComboBoxActionPerformed
 
     private void jButtonRestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRestoreActionPerformed
         try {
@@ -739,35 +639,36 @@ public final class NbDbDumpDialog extends JDialog {
             this.hours = ca.get(java.util.Calendar.HOUR_OF_DAY);
             this.min = ca.get(java.util.Calendar.MINUTE);
             this.seconds = ca.get(java.util.Calendar.SECOND);
-            String archivo = jLabelDataBases.getText() + String.valueOf(this.Anio);
-            if (this.Mes < 10) {
-                archivo += "0" + String.valueOf(this.Mes);
-            } else {
-                archivo += String.valueOf(this.Mes);
-            }
-            if (this.Dia < 10) {
-                archivo += "0" + String.valueOf(this.Dia);
-            } else {
-                archivo += String.valueOf(this.Dia);
-            }
-            if (this.hours < 10) {
-                archivo += "0" + String.valueOf(this.hours);
-            } else {
-                archivo += String.valueOf(this.hours);
-            }
-            if (this.min < 10) {
-                archivo += "0" + String.valueOf(this.min);
-            } else {
-                archivo += String.valueOf(this.min);
-            }
+//            String backupFileName = jLabelDataBases.getText() + String.valueOf(this.Anio);
+            String backupFileName = "TestName";
+//            if (this.Mes < 10) {
+//                archivo += "0" + String.valueOf(this.Mes);
+//            } else {
+//                archivo += String.valueOf(this.Mes);
+//            }
+//            if (this.Dia < 10) {
+//                archivo += "0" + String.valueOf(this.Dia);
+//            } else {
+//                archivo += String.valueOf(this.Dia);
+//            }
+//            if (this.hours < 10) {
+//                archivo += "0" + String.valueOf(this.hours);
+//            } else {
+//                archivo += String.valueOf(this.hours);
+//            }
+//            if (this.min < 10) {
+//                archivo += "0" + String.valueOf(this.min);
+//            } else {
+//                archivo += String.valueOf(this.min);
+//            }
 
-            archivo += ".sql";
+            backupFileName += ".sql";
         } catch (Exception e) {
             error(e.getLocalizedMessage());
         }
     }//GEN-LAST:event_dataToFilenameCheckboxActionPerformed
 
-    private void jButtonBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackupActionPerformed
+    private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
         try {
             String outputCommand = "";
             //String comando = "mysqldump --host=" + this.host + " --opt --user=" + ConnectionHelper.getUserDB() + " --password=" + ConnectionHelper.getPasswordDB() + " --add-drop-table " + this.dataBase + "  -r  " + jTextFieldRuta.getText() + jLabelDataBases.getText() + ".sql";
@@ -775,7 +676,7 @@ public final class NbDbDumpDialog extends JDialog {
                 //
                 //            } else {
                 //                outputCommand = "mysqldump --host=" + this.host + " --opt --user=" + ConnectionHelper.getUserDB() + " --password=" + ConnectionHelper.getPasswordDB() + " --add-drop-table " + this.dataBase + "  -r  " + jTextFieldRuta.getText() + jLabelNameBackup.getText();
-            outputCommand = "mysqldump --host=" + this.host + " --opt --user=" + ConnectionHelper.getUserDB() + " --password=" + ConnectionHelper.getPasswordDB() + " --add-drop-table " + this.dataBase + "  -r  " + jTextFieldRuta.getText();
+                outputCommand = "mysqldump --host=" + this.host + " --opt --user=" + ConnectionHelper.getUserDB() + " --password=" + ConnectionHelper.getPasswordDB() + " --add-drop-table " + this.dataBase + "  -r  " + jTextFieldRuta.getText();
                 //            }
 
             jTextFieldComando.setText(outputCommand);
@@ -796,61 +697,70 @@ public final class NbDbDumpDialog extends JDialog {
         } catch (MissingResourceException e) {
             error(e.getLocalizedMessage());
         }
-    }//GEN-LAST:event_jButtonBackupActionPerformed
+    }//GEN-LAST:event_okBtnActionPerformed
 
     private void jButtonSelectDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectDirectoryActionPerformed
-        try {
-            limpiar();
-//            String osName = System.getProperty("os.name");
-            osName = osName.toLowerCase();
-            final JFileChooser chooser = new JFileChooser();
-            chooser.setCurrentDirectory(new java.io.File("."));
-            chooser.setDialogTitle("Directory");
-            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            chooser.setAcceptAllFileFilterUsed(false);
-            if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                String ruta = chooser.getSelectedFile().toString() + "/";
-                ruta = ruta.replaceFirst("/./", "/");
-
-                if (osName.equals("linux")) {
-                    jTextFieldRuta.setText(ruta);
-                } else {
-                    //                 ruta = ruta.replaceAll("\", '\\');"
-                        String colores = ruta;
-                        String[] arrayColores = ruta.split("\\");
-
-                    // En este momento tenemos un array en el que cada elemento es un color.
-                    for (String arrayColore : arrayColores) {
-                        System.out.println(arrayColore);
-                    }
-
-                        }
-
-                        //                        jLabelNameBackup.setText(jLabelDataBases.getText() + ".sql");
-                        jButtonBackup.setEnabled(true);
-                    } else {
-                        informacion(NbBundle.getMessage(NbDbDumpDialog.class, "Message_NoDirectory"));
-                    }
-        } catch (HeadlessException e) {
-                    error(e.getLocalizedMessage());
-        } catch (MissingResourceException e) {
-            error(e.getLocalizedMessage());
-        }
+//        try {
+//            limpiar();
+//            //            String osName = System.getProperty("os.name");
+//            final JFileChooser chooser = new JFileChooser();
+//            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//            chooser.setAcceptAllFileFilterUsed(false);
+//            if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+//                String ruta = chooser.getSelectedFile().toString();
+//                ruta = ruta.replaceFirst("/./", "/");
+//
+//                if (osName.equals("linux")) {
+//                    jTextFieldRuta.setText(ruta);
+//                } else {
+//                    //                 ruta = ruta.replaceAll("\", '\\');"
+//                        String colores = ruta;
+//                        String[] arrayColores = ruta.split("\\");
+//
+//                            // En este momento tenemos un array en el que cada elemento es un color.
+//                            for (String arrayColore : arrayColores) {
+//                                System.out.println(arrayColore);
+//                            }
+//
+//                        }
+//
+//                        //                        jLabelNameBackup.setText(jLabelDataBases.getText() + ".sql");
+//                        jButtonBackup.setEnabled(true);
+//                    } else {
+//                        informacion(NbBundle.getMessage(NbDbDumpDialog.class, "Message_NoDirectory"));
+//                    }
+//                } catch (HeadlessException e) {
+//                    error(e.getLocalizedMessage());
+//                } catch (MissingResourceException e) {
+//                    error(e.getLocalizedMessage());
+//                }
     }//GEN-LAST:event_jButtonSelectDirectoryActionPerformed
 
     private void jTextFieldRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRutaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldRutaActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    private void mysqldumpPathBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mysqldumpPathBtnActionPerformed
+//        try {
+//            osName = osName.toLowerCase();
+//            final JFileChooser chooser = new JFileChooser();
+//            //            chooser.setCurrentDirectory(new java.io.File("."));
+//            //            chooser.setDialogTitle("Directory");
+//            //            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//            //            chooser.setAcceptAllFileFilterUsed(false);
+//
+//            if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+//                String pathOfExecutable = chooser.getSelectedFile().toString();
+//                mysqldumpPathTextField.setText(pathOfExecutable);
+//            }
+//        } catch (HeadlessException e) {
+//            printStackTrace(e.getLocalizedMessage());
+//        }
+    }//GEN-LAST:event_mysqldumpPathBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox dataBasesComboBox;
-    private javax.swing.JLabel dataBasesLabel;
     private javax.swing.JCheckBox dataToFilenameCheckbox;
-    private javax.swing.JButton jButtonBackup;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBackup1;
     private javax.swing.JButton jButtonCargar;
     private javax.swing.JButton jButtonRestore;
@@ -862,17 +772,12 @@ public final class NbDbDumpDialog extends JDialog {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelArchivoBackup;
-    private javax.swing.JLabel jLabelDataBases;
-    private javax.swing.JLabel jLabelMySQLPath;
     private javax.swing.JLabel jLabelRutaBackup;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -888,10 +793,17 @@ public final class NbDbDumpDialog extends JDialog {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextFieldComando;
     private javax.swing.JTextField jTextFieldPathMongodb;
     private javax.swing.JTextField jTextFieldRuta;
+    private javax.swing.JButton mysqldumpPathBtn;
+    private javax.swing.JLabel mysqldumpPathLabel;
+    private javax.swing.JTextField mysqldumpPathTextField;
+    private javax.swing.JButton okBtn;
+    private javax.swing.JLabel selectedDatabasesLabel;
+    private javax.swing.JTextField selectedDatabasesTextField;
+    private javax.swing.JComboBox<String> statementsComboBox;
+    private javax.swing.JLabel statementsLabel;
     // End of variables declaration//GEN-END:variables
 
     void writeProperties(java.util.Properties p) {
@@ -948,7 +860,7 @@ public final class NbDbDumpDialog extends JDialog {
         archivoRestore = "";
         rutaRestore = "";
         jTextFieldComando.setText("");
-        jButtonBackup.setEnabled(false);
+        okBtn.setEnabled(false);
         jButtonRestore.setEnabled(false);
     }
 }
