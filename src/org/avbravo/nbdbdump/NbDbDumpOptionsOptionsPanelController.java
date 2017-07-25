@@ -1,4 +1,4 @@
-package org.avbravo.dbackrestore;
+package org.avbravo.nbdbdump;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -16,8 +16,8 @@ import org.openide.util.NbBundle;
         keywordsCategory = "Advanced/DBackupRestoreOptions"
 )
 @NbBundle.Messages({"AdvancedOption_DisplayName_DBackupRestoreOptions=DBackupRestore Options", "AdvancedOption_Keywords_DBackupRestoreOptions=dbackuprestore"})
-public final class DBackupRestoreOptionsOptionsPanelController extends OptionsPanelController {
-    private DBackupRestoreOptionsPanel panel;
+public final class NbDbDumpOptionsOptionsPanelController extends OptionsPanelController {
+    private NbDbDumpOptionsPanel panel;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private boolean changed;
 
@@ -73,9 +73,9 @@ public final class DBackupRestoreOptionsOptionsPanelController extends OptionsPa
         pcs.removePropertyChangeListener(l);
     }
 
-    private DBackupRestoreOptionsPanel getPanel() {
+    private NbDbDumpOptionsPanel getPanel() {
         if (panel == null) {
-            panel = new DBackupRestoreOptionsPanel(this);
+            panel = new NbDbDumpOptionsPanel(this);
         }
         return panel;
     }

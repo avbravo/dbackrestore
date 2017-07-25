@@ -1,8 +1,8 @@
-package org.avbravo.dbackrestore.actions;
+package org.avbravo.nbdbdump.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.avbravo.dbackrestore.MySqlDumpDialog;
+import org.avbravo.nbdbdump.NbDbDumpDialog;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionReferences;
@@ -12,7 +12,7 @@ import org.openide.util.NbBundle.Messages;
 // https://www.electrictoolbox.com/mysqldump-schema-only/
 @ActionID(
         category = "Database",
-        id = "org.avbravo.dbackrestore.actions.DumpDataWithMySQLDump"
+        id = "org.avbravo.nbdbdump.actions.DumpDataWithMySQLDump"
 )
 @ActionRegistration(displayName = "#CTL_DumpDataWithMySQLDump")
 @ActionReferences(value = {
@@ -25,7 +25,7 @@ import org.openide.util.NbBundle.Messages;
 public final class DumpDataWithMySQLDumpAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
-        MySqlDumpDialog backRestoreTopComponent = new MySqlDumpDialog();
+        NbDbDumpDialog backRestoreTopComponent = new NbDbDumpDialog();
         backRestoreTopComponent.setVisible(true);
     }
 }

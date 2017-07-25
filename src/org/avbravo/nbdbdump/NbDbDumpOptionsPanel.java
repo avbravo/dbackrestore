@@ -1,15 +1,15 @@
-package org.avbravo.dbackrestore;
+package org.avbravo.nbdbdump;
 
 import java.awt.HeadlessException;
 import javax.swing.JFileChooser;
 import static jdk.nashorn.internal.objects.NativeError.printStackTrace;
 import org.openide.util.NbPreferences;
 
-final class DBackupRestoreOptionsPanel extends javax.swing.JPanel {
-    private final DBackupRestoreOptionsOptionsPanelController controller;
+final class NbDbDumpOptionsPanel extends javax.swing.JPanel {
+    private final NbDbDumpOptionsOptionsPanelController controller;
     private String osName = System.getProperty("os.name").toLowerCase();
 
-    DBackupRestoreOptionsPanel(DBackupRestoreOptionsOptionsPanelController controller) {
+    NbDbDumpOptionsPanel(NbDbDumpOptionsOptionsPanelController controller) {
         this.controller = controller;
         initComponents();
         // TODO listen to changes in form fields and call controller.changed()
@@ -28,12 +28,12 @@ final class DBackupRestoreOptionsPanel extends javax.swing.JPanel {
         mysqldumpPathTextField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(DBackupRestoreOptionsPanel.class, "DBackupRestoreOptionsPanel.jLabel2.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(NbDbDumpOptionsPanel.class, "NbDbDumpOptionsPanel.jLabel2.text")); // NOI18N
 
-        mysqldumpPathTextField.setText(org.openide.util.NbBundle.getMessage(DBackupRestoreOptionsPanel.class, "DBackupRestoreOptionsPanel.mysqldumpPathTextField.text")); // NOI18N
+        mysqldumpPathTextField.setText(org.openide.util.NbBundle.getMessage(NbDbDumpOptionsPanel.class, "NbDbDumpOptionsPanel.mysqldumpPathTextField.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton1, org.openide.util.NbBundle.getMessage(DBackupRestoreOptionsPanel.class, "DBackupRestoreOptionsPanel.jButton1.text")); // NOI18N
-        jButton1.setToolTipText(org.openide.util.NbBundle.getMessage(DBackupRestoreOptionsPanel.class, "DBackupRestoreOptionsPanel.jButton1.toolTipText")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButton1, org.openide.util.NbBundle.getMessage(NbDbDumpOptionsPanel.class, "NbDbDumpOptionsPanel.jButton1.text")); // NOI18N
+        jButton1.setToolTipText(org.openide.util.NbBundle.getMessage(NbDbDumpOptionsPanel.class, "NbDbDumpOptionsPanel.jButton1.toolTipText")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -97,15 +97,15 @@ final class DBackupRestoreOptionsPanel extends javax.swing.JPanel {
     void load() {
         // TODO read settings and initialize GUI
         // Example:
-        // someCheckBox.setSelected(NbPreferences.forModule(DBackupRestoreOptionsPanel.class).getBoolean("someFlag", false));
-        mysqldumpPathTextField.setText(NbPreferences.forModule(DBackupRestoreOptionsPanel.class).get("mysqldump.path", ""));
+        // someCheckBox.setSelected(NbPreferences.forModule(NbDbDumpOptionsPanel.class).getBoolean("someFlag", false));
+        mysqldumpPathTextField.setText(NbPreferences.forModule(NbDbDumpOptionsPanel.class).get("mysqldump.path", ""));
 
     }
 
     void store() {
         // Example:
-        // NbPreferences.forModule(DBackupRestoreOptionsPanel.class).putBoolean("someFlag", someCheckBox.isSelected());
-        NbPreferences.forModule(DBackupRestoreOptionsPanel.class).put("mysqldump.path", mysqldumpPathTextField.getText());
+        // NbPreferences.forModule(NbDbDumpOptionsPanel.class).putBoolean("someFlag", someCheckBox.isSelected());
+        NbPreferences.forModule(NbDbDumpOptionsPanel.class).put("mysqldump.path", mysqldumpPathTextField.getText());
     }
 
     boolean valid() {

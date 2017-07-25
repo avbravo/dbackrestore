@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.avbravo.dbackrestore;
+package org.avbravo.nbdbdump;
 
 import java.awt.HeadlessException;
 import java.io.IOException;
@@ -28,24 +28,24 @@ import org.openide.util.NbPreferences;
 /**
  * Top component which displays something.
  */
-@ConvertAsProperties(dtd = "-//org.avbravo.dbackrestore//DBackRestore//EN",
+@ConvertAsProperties(dtd = "-//org.avbravo.nbdbdump//nbdbdump//EN",
         autostore = false)
-//@TopComponent.Description(preferredID = "MySqlDumpDialog",
-//        iconBase = "org/avbravo/dbackrestore/restoredb.png",
+//@TopComponent.Description(preferredID = "NbDbDumpDialog",
+//        iconBase = "org/avbravo/nbdbdump/restoredb.png",
 //        persistenceType = TopComponent.PERSISTENCE_ALWAYS)
 //@TopComponent.Registration(mode = "commonpalette", openAtStartup = false)
-@ActionID(category = "Database", id = "org.avbravo.dbackrestore.DBackRestoreTopComponent")
+@ActionID(category = "Database", id = "org.avbravo.nbdbdump.nbdbdumpTopComponent")
 //@ActionReference(path = "Menu/Window" /*
 // * , position = 333
 // */)
-//@TopComponent.OpenActionRegistration(displayName = "#CTL_DBackRestoreAction",
-//        preferredID = "MySqlDumpDialog")
+//@TopComponent.OpenActionRegistration(displayName = "#CTL_nbdbdumpAction",
+//        preferredID = "NbDbDumpDialog")
 @Messages({
-    "CTL_DBackRestoreAction=DBackRestore",
-    "CTL_DBackRestoreTopComponent=DBackRestore Window",
-    "HINT_DBackRestoreTopComponent=This is a DBackRestore window"
+    "CTL_nbdbdumpAction=nbdbdump",
+    "CTL_nbdbdumpTopComponent=nbdbdump Window",
+    "HINT_nbdbdumpTopComponent=This is a nbdbdump window"
 })
-public final class MySqlDumpDialog extends JDialog {
+public final class NbDbDumpDialog extends JDialog {
     NotifyDescriptor nd;
     String archivoBackup = "";
     String rutaBackup = "";
@@ -57,14 +57,14 @@ public final class MySqlDumpDialog extends JDialog {
     Integer Anio, Mes, Dia, hours, min, seconds;
     String osName = System.getProperty("os.name").toLowerCase();
 
-    public MySqlDumpDialog() {
+    public NbDbDumpDialog() {
         initComponents();
-//        setName(Bundle.CTL_DBackRestoreTopComponent());
-//        setToolTipText(Bundle.HINT_DBackRestoreTopComponent());
+//        setName(Bundle.CTL_nbdbdumpTopComponent());
+//        setToolTipText(Bundle.HINT_nbdbdumpTopComponent());
         try {
             DatabaseExplorerUIs.connect(dataBasesComboBox, ConnectionManager.getDefault());
 
-            Preferences pref = NbPreferences.forModule(DBackupRestoreOptionsPanel.class);
+            Preferences pref = NbPreferences.forModule(NbDbDumpOptionsPanel.class);
             String name = pref.get("pathmysql", "");
             //String pathBackupFolder = pref.get("pathbackupfolder", "");
             //jTextFieldRuta.setText(pathBackupFolder);
@@ -142,16 +142,16 @@ public final class MySqlDumpDialog extends JDialog {
         jSeparator1 = new javax.swing.JSeparator();
 
         jTextFieldRuta.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
-        jTextFieldRuta.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextFieldRuta.text")); // NOI18N
+        jTextFieldRuta.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jTextFieldRuta.text")); // NOI18N
         jTextFieldRuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldRutaActionPerformed(evt);
             }
         });
 
-        jButtonSelectDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/open-icon.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonSelectDirectory.text")); // NOI18N
-        jButtonSelectDirectory.setToolTipText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonSelectDirectory.toolTipText")); // NOI18N
+        jButtonSelectDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/nbdbdump/resources/open-icon.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonSelectDirectory.text")); // NOI18N
+        jButtonSelectDirectory.setToolTipText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonSelectDirectory.toolTipText")); // NOI18N
         jButtonSelectDirectory.setEnabled(false);
         jButtonSelectDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,8 +159,8 @@ public final class MySqlDumpDialog extends JDialog {
             }
         });
 
-        jButtonBackup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/backupgreen.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonBackup, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonBackup.text")); // NOI18N
+        jButtonBackup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/nbdbdump/resources/backupgreen.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonBackup, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonBackup.text")); // NOI18N
         jButtonBackup.setEnabled(false);
         jButtonBackup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +168,7 @@ public final class MySqlDumpDialog extends JDialog {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(dataToFilenameCheckbox, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.dataToFilenameCheckbox.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(dataToFilenameCheckbox, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.dataToFilenameCheckbox.text")); // NOI18N
         dataToFilenameCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dataToFilenameCheckboxActionPerformed(evt);
@@ -206,13 +206,13 @@ public final class MySqlDumpDialog extends JDialog {
                 .addContainerGap(101, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
+        jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel3.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel3.text")); // NOI18N
 
-        jButtonCargar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/open-icon.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonCargar, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonCargar.text")); // NOI18N
-        jButtonCargar.setToolTipText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonCargar.toolTipText")); // NOI18N
+        jButtonCargar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/nbdbdump/resources/open-icon.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonCargar, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonCargar.text")); // NOI18N
+        jButtonCargar.setToolTipText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonCargar.toolTipText")); // NOI18N
         jButtonCargar.setEnabled(false);
         jButtonCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,8 +220,8 @@ public final class MySqlDumpDialog extends JDialog {
             }
         });
 
-        jButtonRestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/restore.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonRestore, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonRestore.text")); // NOI18N
+        jButtonRestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/nbdbdump/resources/restore.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonRestore, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonRestore.text")); // NOI18N
         jButtonRestore.setEnabled(false);
         jButtonRestore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,14 +229,14 @@ public final class MySqlDumpDialog extends JDialog {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel5.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel5.text")); // NOI18N
 
         jLabelRutaBackup.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jLabelRutaBackup, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabelRutaBackup.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabelRutaBackup, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabelRutaBackup.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabelArchivoBackup, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabelArchivoBackup.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabelArchivoBackup, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabelArchivoBackup.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel7, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel7.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel7, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel7.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -286,9 +286,9 @@ public final class MySqlDumpDialog extends JDialog {
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
+        jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(dataBasesLabel, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.dataBasesLabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(dataBasesLabel, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.dataBasesLabel.text")); // NOI18N
 
         dataBasesComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,20 +297,20 @@ public final class MySqlDumpDialog extends JDialog {
         });
 
         jLabelDataBases.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jLabelDataBases, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabelDataBases.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabelDataBases, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabelDataBases.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel4.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel4.text")); // NOI18N
 
         jTextFieldComando.setFont(new java.awt.Font("Ubuntu", 0, 8)); // NOI18N
-        jTextFieldComando.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextFieldComando.text")); // NOI18N
+        jTextFieldComando.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jTextFieldComando.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel6, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel6.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel6, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel6.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel2.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel2.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabelMySQLPath, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabelMySQLPath.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabelMySQLPath, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabelMySQLPath.text")); // NOI18N
 
-        jTextField6.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextField6.text")); // NOI18N
+        jTextField6.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jTextField6.text")); // NOI18N
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
@@ -377,35 +377,35 @@ public final class MySqlDumpDialog extends JDialog {
                 .addContainerGap())
         );
 
-        jTabbedPane2.addTab(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
+        jTabbedPane2.addTab(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel8, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel8.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel8, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel8.text")); // NOI18N
 
-        jTextFieldPathMongodb.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextFieldPathMongodb.text")); // NOI18N
+        jTextFieldPathMongodb.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jTextFieldPathMongodb.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel9, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel9.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel9, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel9.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel10, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel10.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel10, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel10.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel11, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel11.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel11, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel11.text")); // NOI18N
 
-        jTextField1.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextField1.text")); // NOI18N
+        jTextField1.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jTextField1.text")); // NOI18N
 
-        jTextField2.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextField2.text")); // NOI18N
+        jTextField2.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jTextField2.text")); // NOI18N
 
-        jTextField3.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextField3.text")); // NOI18N
+        jTextField3.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jTextField3.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel12, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel12.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel12, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel12.text")); // NOI18N
 
-        jTextField4.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextField4.text")); // NOI18N
+        jTextField4.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jTextField4.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel13, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel13.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel13, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jLabel13.text")); // NOI18N
 
-        jTextField5.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextField5.text")); // NOI18N
+        jTextField5.setText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jTextField5.text")); // NOI18N
 
-        jButtonSelectDirectory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/open-icon.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory1, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonSelectDirectory1.text")); // NOI18N
-        jButtonSelectDirectory1.setToolTipText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonSelectDirectory1.toolTipText")); // NOI18N
+        jButtonSelectDirectory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/nbdbdump/resources/open-icon.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory1, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonSelectDirectory1.text")); // NOI18N
+        jButtonSelectDirectory1.setToolTipText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonSelectDirectory1.toolTipText")); // NOI18N
         jButtonSelectDirectory1.setEnabled(false);
         jButtonSelectDirectory1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -413,8 +413,8 @@ public final class MySqlDumpDialog extends JDialog {
             }
         });
 
-        jButtonBackup1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/backupgreen.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonBackup1, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonBackup1.text")); // NOI18N
+        jButtonBackup1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/nbdbdump/resources/backupgreen.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonBackup1, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonBackup1.text")); // NOI18N
         jButtonBackup1.setEnabled(false);
         jButtonBackup1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,8 +422,8 @@ public final class MySqlDumpDialog extends JDialog {
             }
         });
 
-        jButtonRestore1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/restore.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonRestore1, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonRestore1.text")); // NOI18N
+        jButtonRestore1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/nbdbdump/resources/restore.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonRestore1, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonRestore1.text")); // NOI18N
         jButtonRestore1.setEnabled(false);
         jButtonRestore1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -431,9 +431,9 @@ public final class MySqlDumpDialog extends JDialog {
             }
         });
 
-        jButtonSelectDirectory2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/open-icon.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory2, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonSelectDirectory2.text")); // NOI18N
-        jButtonSelectDirectory2.setToolTipText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonSelectDirectory2.toolTipText")); // NOI18N
+        jButtonSelectDirectory2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/nbdbdump/resources/open-icon.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory2, org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonSelectDirectory2.text")); // NOI18N
+        jButtonSelectDirectory2.setToolTipText(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jButtonSelectDirectory2.toolTipText")); // NOI18N
         jButtonSelectDirectory2.setEnabled(false);
         jButtonSelectDirectory2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -535,7 +535,7 @@ public final class MySqlDumpDialog extends JDialog {
                         .addGap(21, 21, 21))))
         );
 
-        jTabbedPane3.addTab(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jPanel6.TabConstraints.tabTitle"), jPanel6); // NOI18N
+        jTabbedPane3.addTab(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jPanel6.TabConstraints.tabTitle"), jPanel6); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -553,7 +553,7 @@ public final class MySqlDumpDialog extends JDialog {
                 .addContainerGap(223, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jPanel5.TabConstraints.tabTitle"), jPanel5); // NOI18N
+        jTabbedPane2.addTab(org.openide.util.NbBundle.getMessage(NbDbDumpDialog.class, "NbDbDumpDialog.jPanel5.TabConstraints.tabTitle"), jPanel5); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -591,7 +591,7 @@ public final class MySqlDumpDialog extends JDialog {
             //     if(osName.toLowerCase().equals("windows")){
                 //
                 //     }
-            //     Preferences pref = NbPreferences.forModule(DBackupRestoreOptionsPanel.class);
+            //     Preferences pref = NbPreferences.forModule(NbDbDumpOptionsPanel.class);
             //        String name = pref.get("pathmysql", "");
             //
             //        pref.addPreferenceChangeListener(new PreferenceChangeListener() {
@@ -613,7 +613,7 @@ public final class MySqlDumpDialog extends JDialog {
         jButtonBackup.setEnabled(false);
 
         if (dataBasesComboBox.getSelectedItem() == null) {
-            advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_SelectConexion"));
+            advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Message_SelectConexion"));
 
             return;
         }
@@ -622,7 +622,7 @@ public final class MySqlDumpDialog extends JDialog {
         if (selected instanceof DatabaseConnection) {
             dbconn = (DatabaseConnection) selected;
         } else {
-            advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoConnected"));
+            advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Message_NoConnected"));
             return;
         }
         int intentos = 0;
@@ -635,14 +635,14 @@ public final class MySqlDumpDialog extends JDialog {
             String url = dbconn.getDatabaseURL();
             Integer posicionMySQL = url.indexOf("mysql:");
             if (posicionMySQL.equals(-1)) {
-                advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoMySQL"));
+                advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Message_NoMySQL"));
                 return;
             } else {
 
                 Integer inicial = posicionMySQL + 8;
                 Integer ultimo = url.lastIndexOf(":");
                 if (ultimo.equals(-1)) {
-                    advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoPointURL"));
+                    advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Message_NoPointURL"));
                     return;
                 }
                 this.host = url.substring(inicial, ultimo);
@@ -657,7 +657,7 @@ public final class MySqlDumpDialog extends JDialog {
         }
             if (ConnectionHelper.getConn() == null) {
             ConnectionManager.getDefault().showConnectionDialog(dbconn);
-            advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Mensaje_NoConectado"));
+            advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Mensaje_NoConectado"));
             return;
         }
             ConnectionHelper.setPrefijo(ConnectionHelper.getConn().getCatalog());
@@ -673,11 +673,11 @@ public final class MySqlDumpDialog extends JDialog {
     private void jButtonRestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRestoreActionPerformed
         try {
             if (dataBase.equals("")) {
-                advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoDataBase"));
+                advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Message_NoDataBase"));
                 return;
             }
             if (archivoRestore.equals("") || rutaRestore.equals("")) {
-                advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoRestoreSelected"));
+                advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Message_NoRestoreSelected"));
                 return;
             }
 
@@ -691,10 +691,10 @@ public final class MySqlDumpDialog extends JDialog {
             Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);// execute the command
             processComplete = runtimeProcess.waitFor();
             if (processComplete.equals(1)) {
-                informacion(NbBundle.getMessage(MySqlDumpDialog.class, "Message_RestoredFailed"));
+                informacion(NbBundle.getMessage(NbDbDumpDialog.class, "Message_RestoredFailed"));
             } else if (processComplete == 0) {
                 {
-                    informacion(NbBundle.getMessage(MySqlDumpDialog.class, "Message_Restored"));
+                    informacion(NbBundle.getMessage(NbDbDumpDialog.class, "Message_Restored"));
                 }
             }
         } catch (Exception e) {
@@ -718,7 +718,7 @@ public final class MySqlDumpDialog extends JDialog {
                 jLabelRutaBackup.setText(rutaRestore);
                 jButtonRestore.setEnabled(true);
             } else {
-                advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoFileSQL"));
+                advertencia(NbBundle.getMessage(NbDbDumpDialog.class, "Message_NoFileSQL"));
             }
         } catch (Exception e) {
             error(e.getLocalizedMessage());
@@ -788,9 +788,9 @@ public final class MySqlDumpDialog extends JDialog {
                 return;
             }
             //Guarda la ruta del backup
-            NbPreferences.forModule(DBackupRestoreOptionsPanel.class).put("pathbackupfolder", jTextFieldRuta.getText());
+            NbPreferences.forModule(NbDbDumpOptionsPanel.class).put("pathbackupfolder", jTextFieldRuta.getText());
 
-            informacion(NbBundle.getMessage(MySqlDumpDialog.class, "Message_Backup"));
+            informacion(NbBundle.getMessage(NbDbDumpDialog.class, "Message_Backup"));
         } catch (IOException e) {
             error(e.getLocalizedMessage());
         } catch (MissingResourceException e) {
@@ -829,7 +829,7 @@ public final class MySqlDumpDialog extends JDialog {
                         //                        jLabelNameBackup.setText(jLabelDataBases.getText() + ".sql");
                         jButtonBackup.setEnabled(true);
                     } else {
-                        informacion(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoDirectory"));
+                        informacion(NbBundle.getMessage(NbDbDumpDialog.class, "Message_NoDirectory"));
                     }
         } catch (HeadlessException e) {
                     error(e.getLocalizedMessage());
