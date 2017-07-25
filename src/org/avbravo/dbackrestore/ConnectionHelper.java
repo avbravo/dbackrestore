@@ -14,8 +14,7 @@ import java.sql.Statement;
  *
  * @author avbravo
  */
-public class Conexion {
-
+public class ConnectionHelper {
     private static String prefijo;
     static Connection conn;
     static Statement stmt;
@@ -36,7 +35,7 @@ public class Conexion {
     }
 
     public static void setConn(Connection conn) {
-        Conexion.conn = conn;
+        ConnectionHelper.conn = conn;
     }
 
     public static DatabaseMetaData getDmd() {
@@ -44,7 +43,7 @@ public class Conexion {
     }
 
     public static void setDmd(DatabaseMetaData dmd) {
-        Conexion.dmd = dmd;
+        ConnectionHelper.dmd = dmd;
     }
 
     public static String getDriverDB() {
@@ -52,7 +51,7 @@ public class Conexion {
     }
 
     public static void setDriverDB(String driverDB) {
-        Conexion.driverDB = driverDB;
+        ConnectionHelper.driverDB = driverDB;
     }
 
     public static ResultSetMetaData getMdata() {
@@ -60,7 +59,7 @@ public class Conexion {
     }
 
     public static void setMdata(ResultSetMetaData mdata) {
-        Conexion.mdata = mdata;
+        ConnectionHelper.mdata = mdata;
     }
 
     public static String getPasswordDB() {
@@ -68,7 +67,7 @@ public class Conexion {
     }
 
     public static void setPasswordDB(String passwordDB) {
-        Conexion.passwordDB = passwordDB;
+        ConnectionHelper.passwordDB = passwordDB;
     }
 
     public static String getPrefijo() {
@@ -76,7 +75,7 @@ public class Conexion {
     }
 
     public static void setPrefijo(String prefijo) {
-        Conexion.prefijo = prefijo;
+        ConnectionHelper.prefijo = prefijo;
     }
 
     public static ResultSet getRs() {
@@ -84,7 +83,7 @@ public class Conexion {
     }
 
     public static void setRs(ResultSet rs) {
-        Conexion.rs = rs;
+        ConnectionHelper.rs = rs;
     }
 
     public static Statement getStmt() {
@@ -92,7 +91,7 @@ public class Conexion {
     }
 
     public static void setStmt(Statement stmt) {
-        Conexion.stmt = stmt;
+        ConnectionHelper.stmt = stmt;
     }
 
     public static String getUrlDB() {
@@ -100,7 +99,7 @@ public class Conexion {
     }
 
     public static void setUrlDB(String urlDB) {
-        Conexion.urlDB = urlDB;
+        ConnectionHelper.urlDB = urlDB;
     }
 
     public static String getUserDB() {
@@ -108,6 +107,6 @@ public class Conexion {
     }
 
     public static void setUserDB(String userDB) {
-        Conexion.userDB = userDB;
+        ConnectionHelper.userDB = userDB;
     }
 }

@@ -4,9 +4,13 @@
  */
 package org.avbravo.dbackrestore;
 
+import java.awt.HeadlessException;
+import java.io.IOException;
+import java.util.MissingResourceException;
 import java.util.prefs.PreferenceChangeEvent;
 import java.util.prefs.PreferenceChangeListener;
 import java.util.prefs.Preferences;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -17,34 +21,31 @@ import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.awt.ActionID;
-import org.openide.awt.ActionReference;
 import org.openide.util.NbBundle;
 import org.openide.util.NbBundle.Messages;
 import org.openide.util.NbPreferences;
-import org.openide.windows.TopComponent;
 
 /**
  * Top component which displays something.
  */
 @ConvertAsProperties(dtd = "-//org.avbravo.dbackrestore//DBackRestore//EN",
         autostore = false)
-@TopComponent.Description(preferredID = "DBackRestoreTopComponent",
-        iconBase = "org/avbravo/dbackrestore/restoredb.png",
-        persistenceType = TopComponent.PERSISTENCE_ALWAYS)
-@TopComponent.Registration(mode = "commonpalette", openAtStartup = false)
-@ActionID(category = "Window", id = "org.avbravo.dbackrestore.DBackRestoreTopComponent")
-@ActionReference(path = "Menu/Window" /*
- * , position = 333
- */)
-@TopComponent.OpenActionRegistration(displayName = "#CTL_DBackRestoreAction",
-        preferredID = "DBackRestoreTopComponent")
+//@TopComponent.Description(preferredID = "MySqlDumpDialog",
+//        iconBase = "org/avbravo/dbackrestore/restoredb.png",
+//        persistenceType = TopComponent.PERSISTENCE_ALWAYS)
+//@TopComponent.Registration(mode = "commonpalette", openAtStartup = false)
+@ActionID(category = "Database", id = "org.avbravo.dbackrestore.DBackRestoreTopComponent")
+//@ActionReference(path = "Menu/Window" /*
+// * , position = 333
+// */)
+//@TopComponent.OpenActionRegistration(displayName = "#CTL_DBackRestoreAction",
+//        preferredID = "MySqlDumpDialog")
 @Messages({
     "CTL_DBackRestoreAction=DBackRestore",
     "CTL_DBackRestoreTopComponent=DBackRestore Window",
     "HINT_DBackRestoreTopComponent=This is a DBackRestore window"
 })
-public final class DBackRestoreTopComponent extends TopComponent {
-
+public final class MySqlDumpDialog extends JDialog {
     NotifyDescriptor nd;
     String archivoBackup = "";
     String rutaBackup = "";
@@ -53,15 +54,15 @@ public final class DBackRestoreTopComponent extends TopComponent {
     String dataBase = "";
     String host = "";
     String separadorSO = System.getProperties().getProperty("file.separator");
-    Integer Anio, Mes, Dia, Hora, Minutos, Segundos;
+    Integer Anio, Mes, Dia, hours, min, seconds;
     String osName = System.getProperty("os.name").toLowerCase();
 
-    public DBackRestoreTopComponent() {
+    public MySqlDumpDialog() {
         initComponents();
-        setName(Bundle.CTL_DBackRestoreTopComponent());
-        setToolTipText(Bundle.HINT_DBackRestoreTopComponent());
+//        setName(Bundle.CTL_DBackRestoreTopComponent());
+//        setToolTipText(Bundle.HINT_DBackRestoreTopComponent());
         try {
-            DatabaseExplorerUIs.connect(jComboBoxDataBases, ConnectionManager.getDefault());
+            DatabaseExplorerUIs.connect(dataBasesComboBox, ConnectionManager.getDefault());
 
             Preferences pref = NbPreferences.forModule(DBackupRestoreOptionsPanel.class);
             String name = pref.get("pathmysql", "");
@@ -71,7 +72,7 @@ public final class DBackRestoreTopComponent extends TopComponent {
             pref.addPreferenceChangeListener(new PreferenceChangeListener() {
 
 //            public void preferenceChange(PreferenceChangeEvent evt) {
-//              
+//
 //            }
                 @Override
                 public void preferenceChange(PreferenceChangeEvent evt) {
@@ -94,7 +95,6 @@ public final class DBackRestoreTopComponent extends TopComponent {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -102,10 +102,7 @@ public final class DBackRestoreTopComponent extends TopComponent {
         jTextFieldRuta = new javax.swing.JTextField();
         jButtonSelectDirectory = new javax.swing.JButton();
         jButtonBackup = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jLabelNameBackup = new javax.swing.JLabel();
+        dataToFilenameCheckbox = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jButtonCargar = new javax.swing.JButton();
@@ -114,14 +111,15 @@ public final class DBackRestoreTopComponent extends TopComponent {
         jLabelRutaBackup = new javax.swing.JLabel();
         jLabelArchivoBackup = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBoxDataBases = new javax.swing.JComboBox();
+        dataBasesLabel = new javax.swing.JLabel();
+        dataBasesComboBox = new javax.swing.JComboBox();
         jLabelDataBases = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldComando = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabelMySQLPath = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -144,7 +142,7 @@ public final class DBackRestoreTopComponent extends TopComponent {
         jSeparator1 = new javax.swing.JSeparator();
 
         jTextFieldRuta.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
-        jTextFieldRuta.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextFieldRuta.text")); // NOI18N
+        jTextFieldRuta.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextFieldRuta.text")); // NOI18N
         jTextFieldRuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldRutaActionPerformed(evt);
@@ -152,8 +150,8 @@ public final class DBackRestoreTopComponent extends TopComponent {
         });
 
         jButtonSelectDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/open-icon.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonSelectDirectory.text")); // NOI18N
-        jButtonSelectDirectory.setToolTipText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonSelectDirectory.toolTipText")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonSelectDirectory.text")); // NOI18N
+        jButtonSelectDirectory.setToolTipText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonSelectDirectory.toolTipText")); // NOI18N
         jButtonSelectDirectory.setEnabled(false);
         jButtonSelectDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,7 +160,7 @@ public final class DBackRestoreTopComponent extends TopComponent {
         });
 
         jButtonBackup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/backupgreen.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonBackup, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonBackup.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonBackup, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonBackup.text")); // NOI18N
         jButtonBackup.setEnabled(false);
         jButtonBackup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,70 +168,29 @@ public final class DBackRestoreTopComponent extends TopComponent {
             }
         });
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jPanel4.border.title"))); // NOI18N
-
-        buttonGroup1.add(jCheckBox1);
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox1, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jCheckBox1.text")); // NOI18N
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        org.openide.awt.Mnemonics.setLocalizedText(dataToFilenameCheckbox, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.dataToFilenameCheckbox.text")); // NOI18N
+        dataToFilenameCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                dataToFilenameCheckboxActionPerformed(evt);
             }
         });
-
-        buttonGroup1.add(jCheckBox2);
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox2, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jCheckBox2.text")); // NOI18N
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
-
-        jLabelNameBackup.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jLabelNameBackup, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabelNameBackup.text")); // NOI18N
-        jLabelNameBackup.setToolTipText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabelNameBackup.toolTipText")); // NOI18N
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBox2))
-                    .addComponent(jLabelNameBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 117, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabelNameBackup)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox1))
-                .addGap(15, 15, 15))
-        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButtonSelectDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonSelectDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
+                        .addComponent(dataToFilenameCheckbox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,19 +199,20 @@ public final class DBackRestoreTopComponent extends TopComponent {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonSelectDirectory)
                     .addComponent(jTextFieldRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonBackup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dataToFilenameCheckbox)
+                    .addComponent(jButtonBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 42, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
+        jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel3.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel3.text")); // NOI18N
 
         jButtonCargar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/open-icon.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonCargar, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonCargar.text")); // NOI18N
-        jButtonCargar.setToolTipText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonCargar.toolTipText")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonCargar, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonCargar.text")); // NOI18N
+        jButtonCargar.setToolTipText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonCargar.toolTipText")); // NOI18N
         jButtonCargar.setEnabled(false);
         jButtonCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,7 +221,7 @@ public final class DBackRestoreTopComponent extends TopComponent {
         });
 
         jButtonRestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/restore.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonRestore, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonRestore.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonRestore, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonRestore.text")); // NOI18N
         jButtonRestore.setEnabled(false);
         jButtonRestore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,14 +229,14 @@ public final class DBackRestoreTopComponent extends TopComponent {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel5.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel5.text")); // NOI18N
 
         jLabelRutaBackup.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jLabelRutaBackup, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabelRutaBackup.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabelRutaBackup, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabelRutaBackup.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabelArchivoBackup, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabelArchivoBackup.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabelArchivoBackup, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabelArchivoBackup.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel7, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel7.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel7, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel7.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -328,37 +286,50 @@ public final class DBackRestoreTopComponent extends TopComponent {
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
+        jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel1.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(dataBasesLabel, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.dataBasesLabel.text")); // NOI18N
 
-        jComboBoxDataBases.addActionListener(new java.awt.event.ActionListener() {
+        dataBasesComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxDataBasesActionPerformed(evt);
+                dataBasesComboBoxActionPerformed(evt);
             }
         });
 
         jLabelDataBases.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jLabelDataBases, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabelDataBases.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabelDataBases, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabelDataBases.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel4.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel4.text")); // NOI18N
 
         jTextFieldComando.setFont(new java.awt.Font("Ubuntu", 0, 8)); // NOI18N
-        jTextFieldComando.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextFieldComando.text")); // NOI18N
+        jTextFieldComando.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextFieldComando.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel6, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel6.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel6, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel6.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel2.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel2.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabelMySQLPath, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabelMySQLPath.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabelMySQLPath, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabelMySQLPath.text")); // NOI18N
+
+        jTextField6.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextField6.text")); // NOI18N
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(dataBasesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dataBasesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 12, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,23 +342,21 @@ public final class DBackRestoreTopComponent extends TopComponent {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldComando, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jComboBoxDataBases, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelMySQLPath, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabelMySQLPath, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxDataBases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(12, 12, 12)
+                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dataBasesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dataBasesLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabelDataBases))
@@ -398,41 +367,45 @@ public final class DBackRestoreTopComponent extends TopComponent {
                 .addGap(3, 3, 3)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextFieldComando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 201, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jTextFieldComando)))
+                .addContainerGap())
         );
 
-        jTabbedPane2.addTab(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
+        jTabbedPane2.addTab(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel8, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel8.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel8, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel8.text")); // NOI18N
 
-        jTextFieldPathMongodb.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextFieldPathMongodb.text")); // NOI18N
+        jTextFieldPathMongodb.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextFieldPathMongodb.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel9, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel9.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel9, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel9.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel10, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel10.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel10, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel10.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel11, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel11.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel11, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel11.text")); // NOI18N
 
-        jTextField1.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextField1.text")); // NOI18N
+        jTextField1.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextField1.text")); // NOI18N
 
-        jTextField2.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextField2.text")); // NOI18N
+        jTextField2.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextField2.text")); // NOI18N
 
-        jTextField3.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextField3.text")); // NOI18N
+        jTextField3.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextField3.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel12, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel12.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel12, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel12.text")); // NOI18N
 
-        jTextField4.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextField4.text")); // NOI18N
+        jTextField4.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextField4.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel13, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jLabel13.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel13, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jLabel13.text")); // NOI18N
 
-        jTextField5.setText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jTextField5.text")); // NOI18N
+        jTextField5.setText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jTextField5.text")); // NOI18N
 
         jButtonSelectDirectory1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/open-icon.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory1, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonSelectDirectory1.text")); // NOI18N
-        jButtonSelectDirectory1.setToolTipText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonSelectDirectory1.toolTipText")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory1, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonSelectDirectory1.text")); // NOI18N
+        jButtonSelectDirectory1.setToolTipText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonSelectDirectory1.toolTipText")); // NOI18N
         jButtonSelectDirectory1.setEnabled(false);
         jButtonSelectDirectory1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -441,7 +414,7 @@ public final class DBackRestoreTopComponent extends TopComponent {
         });
 
         jButtonBackup1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/backupgreen.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonBackup1, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonBackup1.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonBackup1, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonBackup1.text")); // NOI18N
         jButtonBackup1.setEnabled(false);
         jButtonBackup1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -450,7 +423,7 @@ public final class DBackRestoreTopComponent extends TopComponent {
         });
 
         jButtonRestore1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/restore.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonRestore1, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonRestore1.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonRestore1, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonRestore1.text")); // NOI18N
         jButtonRestore1.setEnabled(false);
         jButtonRestore1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -459,8 +432,8 @@ public final class DBackRestoreTopComponent extends TopComponent {
         });
 
         jButtonSelectDirectory2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/open-icon.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory2, org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonSelectDirectory2.text")); // NOI18N
-        jButtonSelectDirectory2.setToolTipText(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jButtonSelectDirectory2.toolTipText")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonSelectDirectory2, org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonSelectDirectory2.text")); // NOI18N
+        jButtonSelectDirectory2.setToolTipText(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jButtonSelectDirectory2.toolTipText")); // NOI18N
         jButtonSelectDirectory2.setEnabled(false);
         jButtonSelectDirectory2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -562,7 +535,7 @@ public final class DBackRestoreTopComponent extends TopComponent {
                         .addGap(21, 21, 21))))
         );
 
-        jTabbedPane3.addTab(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jPanel6.TabConstraints.tabTitle"), jPanel6); // NOI18N
+        jTabbedPane3.addTab(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jPanel6.TabConstraints.tabTitle"), jPanel6); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -570,298 +543,29 @@ public final class DBackRestoreTopComponent extends TopComponent {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 61, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab(org.openide.util.NbBundle.getMessage(DBackRestoreTopComponent.class, "DBackRestoreTopComponent.jPanel5.TabConstraints.tabTitle"), jPanel5); // NOI18N
+        jTabbedPane2.addTab(org.openide.util.NbBundle.getMessage(MySqlDumpDialog.class, "MySqlDumpDialog.jPanel5.TabConstraints.tabTitle"), jPanel5); // NOI18N
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 699, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 8, Short.MAX_VALUE))
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jTabbedPane2)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextFieldRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRutaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldRutaActionPerformed
-
-    private void jComboBoxDataBasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDataBasesActionPerformed
-
-        try {
-//     String osName = System.getProperty("os.name").toLowerCase();
-//     advertencia(osName);
-//     if(osName.toLowerCase().equals("windows")){
-//         
-//     }
-//     Preferences pref = NbPreferences.forModule(DBackupRestoreOptionsPanel.class);
-//        String name = pref.get("pathmysql", "");
-//
-//        pref.addPreferenceChangeListener(new PreferenceChangeListener() {
-// 
-////            public void preferenceChange(PreferenceChangeEvent evt) {
-////              
-////            }
-//
-//       @Override    
-//            public void preferenceChange(PreferenceChangeEvent evt) {
-//  if (evt.getKey().equals("pathmysql")) {
-//                    jLabelMySQLPath.setText(evt.getNewValue());
-//                }
-//            }
-//        });
-
-            jButtonSelectDirectory.setEnabled(false);
-            jButtonCargar.setEnabled(false);
-            jButtonBackup.setEnabled(false);
-            jLabelNameBackup.setText("");
-            if (jComboBoxDataBases.getSelectedItem() == null) {
-                advertencia(NbBundle.getMessage(DBackRestoreTopComponent.class, "Message_SelectConexion"));
-                return;
-            }
-            DatabaseConnection dbconn = null;
-            Object selected = jComboBoxDataBases.getSelectedItem();
-            if (selected instanceof DatabaseConnection) {
-                dbconn = (DatabaseConnection) selected;
-            } else {
-                advertencia(NbBundle.getMessage(DBackRestoreTopComponent.class, "Message_NoConnected"));
-                return;
-            }
-            int intentos = 0;
-            while (intentos < 2) {
-                Conexion.setUrlDB(dbconn.getDatabaseURL());
-                Conexion.setUserDB(dbconn.getUser());
-                Conexion.setPasswordDB(dbconn.getPassword());
-                Conexion.setDriverDB(dbconn.getDriverClass());
-                Conexion.setConn(dbconn.getJDBCConnection(false));
-                String url = dbconn.getDatabaseURL();
-                Integer posicionMySQL = url.indexOf("mysql:");
-                if (posicionMySQL.equals(-1)) {
-                    advertencia(NbBundle.getMessage(DBackRestoreTopComponent.class, "Message_NoMySQL"));
-                    return;
-                } else {
-
-                    Integer inicial = posicionMySQL + 8;
-                    Integer ultimo = url.lastIndexOf(":");
-                    if (ultimo.equals(-1)) {
-                        advertencia(NbBundle.getMessage(DBackRestoreTopComponent.class, "Message_NoPointURL"));
-                        return;
-                    }
-                    this.host = url.substring(inicial, ultimo);
-
-                }
-                if (Conexion.getConn() == null) {
-                    ConnectionManager.getDefault().showConnectionDialog(dbconn);
-                } else {
-                    break;
-                }
-                intentos++;
-            }
-            if (Conexion.getConn() == null) {
-                ConnectionManager.getDefault().showConnectionDialog(dbconn);
-                advertencia(NbBundle.getMessage(DBackRestoreTopComponent.class, "Mensaje_NoConectado"));
-                return;
-            }
-            Conexion.setPrefijo(Conexion.getConn().getCatalog());
-            jLabelDataBases.setText(Conexion.getPrefijo());
-            this.dataBase = Conexion.getPrefijo();
-            jButtonSelectDirectory.setEnabled(true);
-            jButtonCargar.setEnabled(true);
-        } catch (Exception e) {
-            error(e.getLocalizedMessage());
-        }
-    }//GEN-LAST:event_jComboBoxDataBasesActionPerformed
-
-    private void jButtonBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackupActionPerformed
-        try {
-            String comando = "";
-            //String comando = "mysqldump --host=" + this.host + " --opt --user=" + Conexion.getUserDB() + " --password=" + Conexion.getPasswordDB() + " --add-drop-table " + this.dataBase + "  -r  " + jTextFieldRuta.getText() + jLabelDataBases.getText() + ".sql";
-//            if (osName.toLowerCase().equals("windows")) {
-//
-//            } else {
-                comando = "mysqldump --host=" + this.host + " --opt --user=" + Conexion.getUserDB() + " --password=" + Conexion.getPasswordDB() + " --add-drop-table " + this.dataBase + "  -r  " + jTextFieldRuta.getText() + jLabelNameBackup.getText();
-//            }
-
-            jTextFieldComando.setText(comando);
-            //windows
-//            String varname="cmd mysqldump -uroot -ppassword databasename>c:\\backup.sql"
-//Runtime.getRuntime().exec(varname);
-            Process proc = Runtime.getRuntime().exec(comando);
-            if (proc.getErrorStream() == null) {
-                advertencia("error backup");
-                return;
-            }
-            //Guarda la ruta del backup
-            NbPreferences.forModule(DBackupRestoreOptionsPanel.class).put("pathbackupfolder", jTextFieldRuta.getText());
-
-            informacion(NbBundle.getMessage(DBackRestoreTopComponent.class, "Message_Backup"));
-        } catch (Exception e) {
-            error(e.getLocalizedMessage());
-        }
-    }//GEN-LAST:event_jButtonBackupActionPerformed
-
-    private void jButtonSelectDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectDirectoryActionPerformed
-        try {
-            limpiar();
-            String osName = System.getProperty("os.name");
-            osName = osName.toLowerCase();
-            final JFileChooser chooser = new JFileChooser();
-            chooser.setCurrentDirectory(new java.io.File("."));
-            chooser.setDialogTitle("Directory");
-            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            chooser.setAcceptAllFileFilterUsed(false);
-            if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                String ruta = chooser.getSelectedFile().toString() + "/";
-                ruta = ruta.replaceFirst("/./", "/");
-
-                if (osName.equals("linux")) {
-                    jTextFieldRuta.setText(ruta);
-                } else {
-//                 ruta = ruta.replaceAll("\", '\\');"
-                    String colores = ruta;
-                    String[] arrayColores = ruta.split("\\");
-
-// En este momento tenemos un array en el que cada elemento es un color.
-                    for (int i = 0; i < arrayColores.length; i++) {
-                        System.out.println(arrayColores[i]);
-                    }
-
-                }
-
-                jLabelNameBackup.setText(jLabelDataBases.getText() + ".sql");
-                jButtonBackup.setEnabled(true);
-            } else {
-                informacion(NbBundle.getMessage(DBackRestoreTopComponent.class, "Message_NoDirectory"));
-            }
-        } catch (Exception e) {
-            error(e.getLocalizedMessage());
-        }
-
-    }//GEN-LAST:event_jButtonSelectDirectoryActionPerformed
-
-    private void jButtonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarActionPerformed
-        try {
-            limpiar();
-            final JFileChooser chooser = new JFileChooser();
-            chooser.setCurrentDirectory(new java.io.File("."));
-            chooser.setDialogTitle("Backup File");
-            chooser.setAcceptAllFileFilterUsed(false);
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("Script", "sql");
-            chooser.setFileFilter(filter);
-            if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                archivoRestore = chooser.getSelectedFile().getName();
-                rutaRestore = chooser.getSelectedFile().getAbsolutePath();
-                jLabelArchivoBackup.setText(archivoRestore);
-                jLabelRutaBackup.setText(rutaRestore);
-                jButtonRestore.setEnabled(true);
-            } else {
-                advertencia(NbBundle.getMessage(DBackRestoreTopComponent.class, "Message_NoFileSQL"));
-            }
-        } catch (Exception e) {
-            error(e.getLocalizedMessage());
-        }
-    }//GEN-LAST:event_jButtonCargarActionPerformed
-
-    private void jButtonRestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRestoreActionPerformed
-        try {
-            if (dataBase.equals("")) {
-                advertencia(NbBundle.getMessage(DBackRestoreTopComponent.class, "Message_NoDataBase"));
-                return;
-            }
-            if (archivoRestore.equals("") || rutaRestore.equals("")) {
-                advertencia(NbBundle.getMessage(DBackRestoreTopComponent.class, "Message_NoRestoreSelected"));
-                return;
-            }
-
-//windows
-//Runtime.getRuntime().exec("C:\\Program Files\\MySQL\\MySQL Server 5.0\\bin\\mysql -u root -p123 example < C:/backup.sql");
-            Integer processComplete;
-
-            //String[] executeCmd = new String[]{"mysql ", this.dataBase, "-u" + Conexion.getUserDB(), "-p" + Conexion.getPasswordDB(), "-e", " source " + this.rutaRestore};
-            //"--host=", this.host,
-            String[] executeCmd = new String[]{"mysql", this.dataBase, "-h", this.host, "-u" + Conexion.getUserDB(), "-p" + Conexion.getPasswordDB(), "-e", " source " + this.rutaRestore};
-            Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);// execute the command
-            processComplete = runtimeProcess.waitFor();
-            if (processComplete.equals(1)) {
-                informacion(NbBundle.getMessage(DBackRestoreTopComponent.class, "Message_RestoredFailed"));
-            } else if (processComplete == 0) {
-                {
-                    informacion(NbBundle.getMessage(DBackRestoreTopComponent.class, "Message_Restored"));
-                }
-            }
-        } catch (Exception e) {
-            error(e.getLocalizedMessage());
-        }
-    }//GEN-LAST:event_jButtonRestoreActionPerformed
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        try {
-            jLabelNameBackup.setText(jLabelDataBases.getText() + ".sql");
-        } catch (Exception e) {
-            error(e.getLocalizedMessage());
-        }
-
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        try {
-            java.util.Calendar ca = java.util.Calendar.getInstance();
-            java.sql.Date mydate = new java.sql.Date(ca.getTimeInMillis());
-
-            this.Anio = ca.get(java.util.Calendar.YEAR);
-            this.Mes = ca.get(java.util.Calendar.MONTH);
-            //ya que el mes lo pone en cero
-            this.Mes++;
-
-            this.Dia = ca.get(java.util.Calendar.DAY_OF_MONTH);
-            this.Hora = ca.get(java.util.Calendar.HOUR_OF_DAY);
-            this.Minutos = ca.get(java.util.Calendar.MINUTE);
-            this.Segundos = ca.get(java.util.Calendar.SECOND);
-            String archivo = jLabelDataBases.getText() + String.valueOf(this.Anio);
-            if (this.Mes < 10) {
-                archivo += "0" + String.valueOf(this.Mes);
-            } else {
-                archivo += String.valueOf(this.Mes);
-            }
-            if (this.Dia < 10) {
-                archivo += "0" + String.valueOf(this.Dia);
-            } else {
-                archivo += String.valueOf(this.Dia);
-            }
-            if (this.Hora < 10) {
-                archivo += "0" + String.valueOf(this.Hora);
-            } else {
-                archivo += String.valueOf(this.Hora);
-            }
-            if (this.Minutos < 10) {
-                archivo += "0" + String.valueOf(this.Minutos);
-            } else {
-                archivo += String.valueOf(this.Minutos);
-            }
-
-            archivo += ".sql";
-            jLabelNameBackup.setText(archivo);
-        } catch (Exception e) {
-            error(e.getLocalizedMessage());
-        }
-
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jButtonSelectDirectory1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectDirectory1ActionPerformed
         // TODO add your handling code here:
@@ -879,8 +583,273 @@ public final class DBackRestoreTopComponent extends TopComponent {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonSelectDirectory2ActionPerformed
 
+    private void dataBasesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataBasesComboBoxActionPerformed
+
+        try {
+            //     String osName = System.getProperty("os.name").toLowerCase();
+            //     advertencia(osName);
+            //     if(osName.toLowerCase().equals("windows")){
+                //
+                //     }
+            //     Preferences pref = NbPreferences.forModule(DBackupRestoreOptionsPanel.class);
+            //        String name = pref.get("pathmysql", "");
+            //
+            //        pref.addPreferenceChangeListener(new PreferenceChangeListener() {
+                //
+                ////            public void preferenceChange(PreferenceChangeEvent evt) {
+                    ////
+                    ////            }
+                //
+                //       @Override
+                //            public void preferenceChange(PreferenceChangeEvent evt) {
+                    //  if (evt.getKey().equals("pathmysql")) {
+                        //                    jLabelMySQLPath.setText(evt.getNewValue());
+                        //                }
+                    //            }
+                //        });
+
+        jButtonSelectDirectory.setEnabled(false);
+        jButtonCargar.setEnabled(false);
+        jButtonBackup.setEnabled(false);
+
+        if (dataBasesComboBox.getSelectedItem() == null) {
+            advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_SelectConexion"));
+
+            return;
+        }
+        DatabaseConnection dbconn = null;
+        Object selected = dataBasesComboBox.getSelectedItem();
+        if (selected instanceof DatabaseConnection) {
+            dbconn = (DatabaseConnection) selected;
+        } else {
+            advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoConnected"));
+            return;
+        }
+        int intentos = 0;
+        while (intentos < 2) {
+            ConnectionHelper.setUrlDB(dbconn.getDatabaseURL());
+            ConnectionHelper.setUserDB(dbconn.getUser());
+            ConnectionHelper.setPasswordDB(dbconn.getPassword());
+            ConnectionHelper.setDriverDB(dbconn.getDriverClass());
+            ConnectionHelper.setConn(dbconn.getJDBCConnection(false));
+            String url = dbconn.getDatabaseURL();
+            Integer posicionMySQL = url.indexOf("mysql:");
+            if (posicionMySQL.equals(-1)) {
+                advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoMySQL"));
+                return;
+            } else {
+
+                Integer inicial = posicionMySQL + 8;
+                Integer ultimo = url.lastIndexOf(":");
+                if (ultimo.equals(-1)) {
+                    advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoPointURL"));
+                    return;
+                }
+                this.host = url.substring(inicial, ultimo);
+
+            }
+            if (ConnectionHelper.getConn() == null) {
+                ConnectionManager.getDefault().showConnectionDialog(dbconn);
+            } else {
+                break;
+            }
+            intentos++;
+        }
+            if (ConnectionHelper.getConn() == null) {
+            ConnectionManager.getDefault().showConnectionDialog(dbconn);
+            advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Mensaje_NoConectado"));
+            return;
+        }
+            ConnectionHelper.setPrefijo(ConnectionHelper.getConn().getCatalog());
+            jLabelDataBases.setText(ConnectionHelper.getPrefijo());
+            this.dataBase = ConnectionHelper.getPrefijo();
+        jButtonSelectDirectory.setEnabled(true);
+        jButtonCargar.setEnabled(true);
+        } catch (Exception e) {
+            error(e.getLocalizedMessage());
+        }
+    }//GEN-LAST:event_dataBasesComboBoxActionPerformed
+
+    private void jButtonRestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRestoreActionPerformed
+        try {
+            if (dataBase.equals("")) {
+                advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoDataBase"));
+                return;
+            }
+            if (archivoRestore.equals("") || rutaRestore.equals("")) {
+                advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoRestoreSelected"));
+                return;
+            }
+
+            //windows
+            //Runtime.getRuntime().exec("C:\\Program Files\\MySQL\\MySQL Server 5.0\\bin\\mysql -u root -p123 example < C:/backup.sql");
+            Integer processComplete;
+
+            //String[] executeCmd = new String[]{"mysql ", this.dataBase, "-u" + ConnectionHelper.getUserDB(), "-p" + ConnectionHelper.getPasswordDB(), "-e", " source " + this.rutaRestore};
+            //"--host=", this.host,
+            String[] executeCmd = new String[]{"mysql", this.dataBase, "-h", this.host, "-u" + ConnectionHelper.getUserDB(), "-p" + ConnectionHelper.getPasswordDB(), "-e", " source " + this.rutaRestore};
+            Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);// execute the command
+            processComplete = runtimeProcess.waitFor();
+            if (processComplete.equals(1)) {
+                informacion(NbBundle.getMessage(MySqlDumpDialog.class, "Message_RestoredFailed"));
+            } else if (processComplete == 0) {
+                {
+                    informacion(NbBundle.getMessage(MySqlDumpDialog.class, "Message_Restored"));
+                }
+            }
+        } catch (Exception e) {
+            error(e.getLocalizedMessage());
+        }
+    }//GEN-LAST:event_jButtonRestoreActionPerformed
+
+    private void jButtonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarActionPerformed
+        try {
+            limpiar();
+            final JFileChooser chooser = new JFileChooser();
+            chooser.setCurrentDirectory(new java.io.File("."));
+            chooser.setDialogTitle("Backup File");
+            chooser.setAcceptAllFileFilterUsed(false);
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Script", "sql");
+            chooser.setFileFilter(filter);
+            if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                archivoRestore = chooser.getSelectedFile().getName();
+                rutaRestore = chooser.getSelectedFile().getAbsolutePath();
+                jLabelArchivoBackup.setText(archivoRestore);
+                jLabelRutaBackup.setText(rutaRestore);
+                jButtonRestore.setEnabled(true);
+            } else {
+                advertencia(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoFileSQL"));
+            }
+        } catch (Exception e) {
+            error(e.getLocalizedMessage());
+        }
+    }//GEN-LAST:event_jButtonCargarActionPerformed
+
+    private void dataToFilenameCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataToFilenameCheckboxActionPerformed
+        try {
+            java.util.Calendar ca = java.util.Calendar.getInstance();
+            java.sql.Date mydate = new java.sql.Date(ca.getTimeInMillis());
+
+            this.Anio = ca.get(java.util.Calendar.YEAR);
+            this.Mes = ca.get(java.util.Calendar.MONTH);
+            //ya que el mes lo pone en cero
+            this.Mes++;
+
+            this.Dia = ca.get(java.util.Calendar.DAY_OF_MONTH);
+            this.hours = ca.get(java.util.Calendar.HOUR_OF_DAY);
+            this.min = ca.get(java.util.Calendar.MINUTE);
+            this.seconds = ca.get(java.util.Calendar.SECOND);
+            String archivo = jLabelDataBases.getText() + String.valueOf(this.Anio);
+            if (this.Mes < 10) {
+                archivo += "0" + String.valueOf(this.Mes);
+            } else {
+                archivo += String.valueOf(this.Mes);
+            }
+            if (this.Dia < 10) {
+                archivo += "0" + String.valueOf(this.Dia);
+            } else {
+                archivo += String.valueOf(this.Dia);
+            }
+            if (this.hours < 10) {
+                archivo += "0" + String.valueOf(this.hours);
+            } else {
+                archivo += String.valueOf(this.hours);
+            }
+            if (this.min < 10) {
+                archivo += "0" + String.valueOf(this.min);
+            } else {
+                archivo += String.valueOf(this.min);
+            }
+
+            archivo += ".sql";
+        } catch (Exception e) {
+            error(e.getLocalizedMessage());
+        }
+    }//GEN-LAST:event_dataToFilenameCheckboxActionPerformed
+
+    private void jButtonBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackupActionPerformed
+        try {
+            String outputCommand = "";
+            //String comando = "mysqldump --host=" + this.host + " --opt --user=" + ConnectionHelper.getUserDB() + " --password=" + ConnectionHelper.getPasswordDB() + " --add-drop-table " + this.dataBase + "  -r  " + jTextFieldRuta.getText() + jLabelDataBases.getText() + ".sql";
+            //            if (osName.toLowerCase().equals("windows")) {
+                //
+                //            } else {
+                //                outputCommand = "mysqldump --host=" + this.host + " --opt --user=" + ConnectionHelper.getUserDB() + " --password=" + ConnectionHelper.getPasswordDB() + " --add-drop-table " + this.dataBase + "  -r  " + jTextFieldRuta.getText() + jLabelNameBackup.getText();
+            outputCommand = "mysqldump --host=" + this.host + " --opt --user=" + ConnectionHelper.getUserDB() + " --password=" + ConnectionHelper.getPasswordDB() + " --add-drop-table " + this.dataBase + "  -r  " + jTextFieldRuta.getText();
+                //            }
+
+            jTextFieldComando.setText(outputCommand);
+            //windows
+            //            String varname="cmd mysqldump -uroot -ppassword databasename>c:\\backup.sql"
+            //Runtime.getRuntime().exec(varname);
+            Process proc = Runtime.getRuntime().exec(outputCommand);
+            if (proc.getErrorStream() == null) {
+                advertencia("error backup");
+                return;
+            }
+            //Guarda la ruta del backup
+            NbPreferences.forModule(DBackupRestoreOptionsPanel.class).put("pathbackupfolder", jTextFieldRuta.getText());
+
+            informacion(NbBundle.getMessage(MySqlDumpDialog.class, "Message_Backup"));
+        } catch (IOException e) {
+            error(e.getLocalizedMessage());
+        } catch (MissingResourceException e) {
+            error(e.getLocalizedMessage());
+        }
+    }//GEN-LAST:event_jButtonBackupActionPerformed
+
+    private void jButtonSelectDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectDirectoryActionPerformed
+        try {
+            limpiar();
+//            String osName = System.getProperty("os.name");
+            osName = osName.toLowerCase();
+            final JFileChooser chooser = new JFileChooser();
+            chooser.setCurrentDirectory(new java.io.File("."));
+            chooser.setDialogTitle("Directory");
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            chooser.setAcceptAllFileFilterUsed(false);
+            if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                String ruta = chooser.getSelectedFile().toString() + "/";
+                ruta = ruta.replaceFirst("/./", "/");
+
+                if (osName.equals("linux")) {
+                    jTextFieldRuta.setText(ruta);
+                } else {
+                    //                 ruta = ruta.replaceAll("\", '\\');"
+                        String colores = ruta;
+                        String[] arrayColores = ruta.split("\\");
+
+                    // En este momento tenemos un array en el que cada elemento es un color.
+                    for (String arrayColore : arrayColores) {
+                        System.out.println(arrayColore);
+                    }
+
+                        }
+
+                        //                        jLabelNameBackup.setText(jLabelDataBases.getText() + ".sql");
+                        jButtonBackup.setEnabled(true);
+                    } else {
+                        informacion(NbBundle.getMessage(MySqlDumpDialog.class, "Message_NoDirectory"));
+                    }
+        } catch (HeadlessException e) {
+                    error(e.getLocalizedMessage());
+        } catch (MissingResourceException e) {
+            error(e.getLocalizedMessage());
+        }
+    }//GEN-LAST:event_jButtonSelectDirectoryActionPerformed
+
+    private void jTextFieldRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRutaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldRutaActionPerformed
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox dataBasesComboBox;
+    private javax.swing.JLabel dataBasesLabel;
+    private javax.swing.JCheckBox dataToFilenameCheckbox;
     private javax.swing.JButton jButtonBackup;
     private javax.swing.JButton jButtonBackup1;
     private javax.swing.JButton jButtonCargar;
@@ -889,10 +858,6 @@ public final class DBackRestoreTopComponent extends TopComponent {
     private javax.swing.JButton jButtonSelectDirectory;
     private javax.swing.JButton jButtonSelectDirectory1;
     private javax.swing.JButton jButtonSelectDirectory2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JComboBox jComboBoxDataBases;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -908,12 +873,10 @@ public final class DBackRestoreTopComponent extends TopComponent {
     private javax.swing.JLabel jLabelArchivoBackup;
     private javax.swing.JLabel jLabelDataBases;
     private javax.swing.JLabel jLabelMySQLPath;
-    private javax.swing.JLabel jLabelNameBackup;
     private javax.swing.JLabel jLabelRutaBackup;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator1;
@@ -925,20 +888,11 @@ public final class DBackRestoreTopComponent extends TopComponent {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextFieldComando;
     private javax.swing.JTextField jTextFieldPathMongodb;
     private javax.swing.JTextField jTextFieldRuta;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void componentOpened() {
-        // TODO add custom code on component opening
-    }
-
-    @Override
-    public void componentClosed() {
-        // TODO add custom code on component closing
-    }
 
     void writeProperties(java.util.Properties p) {
         // better to version settings since initial version as advocated at
@@ -993,7 +947,6 @@ public final class DBackRestoreTopComponent extends TopComponent {
         rutaBackup = "";
         archivoRestore = "";
         rutaRestore = "";
-        jLabelNameBackup.setText("");
         jTextFieldComando.setText("");
         jButtonBackup.setEnabled(false);
         jButtonRestore.setEnabled(false);

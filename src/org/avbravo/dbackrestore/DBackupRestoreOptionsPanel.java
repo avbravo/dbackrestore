@@ -1,20 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.avbravo.dbackrestore;
 
+import java.awt.HeadlessException;
 import javax.swing.JFileChooser;
-import org.avbravo.dbackrestore.DBackRestoreTopComponent;
-import org.openide.util.NbBundle;
+import static jdk.nashorn.internal.objects.NativeError.printStackTrace;
 import org.openide.util.NbPreferences;
-import static sun.management.Agent.error;
 
 final class DBackupRestoreOptionsPanel extends javax.swing.JPanel {
-
     private final DBackupRestoreOptionsOptionsPanelController controller;
-    String osName = System.getProperty("os.name").toLowerCase();
+    private String osName = System.getProperty("os.name").toLowerCase();
 
     DBackupRestoreOptionsPanel(DBackupRestoreOptionsOptionsPanelController controller) {
         this.controller = controller;
@@ -32,16 +25,13 @@ final class DBackupRestoreOptionsPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextFieldMySQLPath = new javax.swing.JTextField();
+        mysqldumpPathTextField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(DBackupRestoreOptionsPanel.class, "DBackupRestoreOptionsPanel.jLabel2.text")); // NOI18N
 
-        jTextFieldMySQLPath.setText(org.openide.util.NbBundle.getMessage(DBackupRestoreOptionsPanel.class, "DBackupRestoreOptionsPanel.jTextFieldMySQLPath.text")); // NOI18N
+        mysqldumpPathTextField.setText(org.openide.util.NbBundle.getMessage(DBackupRestoreOptionsPanel.class, "DBackupRestoreOptionsPanel.mysqldumpPathTextField.text")); // NOI18N
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/resources/open-icon.png"))); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(jButton1, org.openide.util.NbBundle.getMessage(DBackupRestoreOptionsPanel.class, "DBackupRestoreOptionsPanel.jButton1.text")); // NOI18N
         jButton1.setToolTipText(org.openide.util.NbBundle.getMessage(DBackupRestoreOptionsPanel.class, "DBackupRestoreOptionsPanel.jButton1.toolTipText")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -50,46 +40,28 @@ final class DBackupRestoreOptionsPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/avbravo/dbackrestore/restoredb.png"))); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, org.openide.util.NbBundle.getMessage(DBackupRestoreOptionsPanel.class, "DBackupRestoreOptionsPanel.jLabel4.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(DBackupRestoreOptionsPanel.class, "DBackupRestoreOptionsPanel.jLabel1.text")); // NOI18N
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldMySQLPath, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)))
-                .addGap(0, 24, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mysqldumpPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 12, Short.MAX_VALUE)
-                        .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jTextFieldMySQLPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(46, 46, 46))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(mysqldumpPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(42, 42, 42))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -100,60 +72,40 @@ final class DBackupRestoreOptionsPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 29, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-
-            String osName = System.getProperty("os.name");
             osName = osName.toLowerCase();
             final JFileChooser chooser = new JFileChooser();
-            chooser.setCurrentDirectory(new java.io.File("."));
-            chooser.setDialogTitle("Directory");
-            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            chooser.setAcceptAllFileFilterUsed(false);
-            if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                String ruta = chooser.getSelectedFile().toString() + "/";
-                ruta = ruta.replaceFirst("/./", "/");
-                if (osName.equals("linux")) {
-//                jTextFieldMySQLPath.setText(ruta);
-                } else {
-////                 ruta = ruta.replaceAll("\", '\\');"
-                }
-                jTextFieldMySQLPath.setText(ruta);
+//            chooser.setCurrentDirectory(new java.io.File("."));
+//            chooser.setDialogTitle("Directory");
+//            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//            chooser.setAcceptAllFileFilterUsed(false);
+
+            if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                String pathOfExecutable = chooser.getSelectedFile().toString();
+                mysqldumpPathTextField.setText(pathOfExecutable);
             }
-        } catch (Exception e) {
-            error(e.getLocalizedMessage());
+        } catch (HeadlessException e) {
+            printStackTrace(e.getLocalizedMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     void load() {
         // TODO read settings and initialize GUI
-        // Example:        
-        // someCheckBox.setSelected(Preferences.userNodeForPackage(DBackupRestoreOptionsPanel.class).getBoolean("someFlag", false));
-        // or for org.openide.util with API spec. version >= 7.4:
+        // Example:
         // someCheckBox.setSelected(NbPreferences.forModule(DBackupRestoreOptionsPanel.class).getBoolean("someFlag", false));
-        // or:
-        // someTextField.setText(SomeSystemOption.getDefault().getSomeStringProperty());
-        jTextFieldMySQLPath.setText(NbPreferences.forModule(DBackupRestoreOptionsPanel.class).get("pathmysql", ""));
-       
+        mysqldumpPathTextField.setText(NbPreferences.forModule(DBackupRestoreOptionsPanel.class).get("mysqldump.path", ""));
+
     }
 
     void store() {
-        // TODO store modified settings
         // Example:
-        // Preferences.userNodeForPackage(DBackupRestoreOptionsPanel.class).putBoolean("someFlag", someCheckBox.isSelected());
-        // or for org.openide.util with API spec. version >= 7.4:
         // NbPreferences.forModule(DBackupRestoreOptionsPanel.class).putBoolean("someFlag", someCheckBox.isSelected());
-        // or:
-        // SomeSystemOption.getDefault().setSomeStringProperty(someTextField.getText());
-        NbPreferences.forModule(DBackupRestoreOptionsPanel.class).put("pathmysql", jTextFieldMySQLPath.getText());
-
-
+        NbPreferences.forModule(DBackupRestoreOptionsPanel.class).put("mysqldump.path", mysqldumpPathTextField.getText());
     }
 
     boolean valid() {
@@ -163,10 +115,8 @@ final class DBackupRestoreOptionsPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextFieldMySQLPath;
+    private javax.swing.JTextField mysqldumpPathTextField;
     // End of variables declaration//GEN-END:variables
 }
